@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.flex {
+  display: flex;
+  align-items: center; /* アイテムを垂直方向の中央に配置 */
+  justify-content: center; /* アイテムを水平方向の始めから配置 */
+}

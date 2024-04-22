@@ -1,0 +1,20 @@
+function doGet(e) {
+  const origin = e.parameter.origin; // オリジンをリクエストパラメータから取得
+  const allowedOrigin = 'http://localhost:3000'; // 許可するオリジン
+
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("フォームの回答 1");
+  const range = sheet.getRange("B2:B");
+  const values = range.getValues();
+  const filteredValues = values.filter(row => row[0] !== "");
+
+  const jsonResponse = JSON.stringify(filteredValues);
+  let output = ContentService.createTextOutput(jsonResponse)
+    .setMimeType(ContentService.MimeType.JSON);
+
+  // CORSの設定
+  if (origin === allowedOrigin) {
+    output.setHeaders({'Access-Control-Allow-Origin': origin});
+  }
+
+  return output;
+}
